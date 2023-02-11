@@ -1,0 +1,170 @@
+---
+title: "Chapter 3 Linear Regression"
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(ISLR2)
+
+```
+### Simple Linear Regression
+
+Mathematically a linear relation is the form $Y \sim \beta_0 + \beta_1 X$ (3.1)
+
+Where $\beta_0$ is the intercept coefficient and $\beta_1$ the slope.
+
+  - Typically referred to regressing $Y$ on $X$
+
+Once the training data produces estimates for $\hat\beta_0$ and $\hat\beta_1$
+We can comput $\hat{y} = \hat\beta_0 + \hat\beta_1 x$ (3.2)
+
+#### Estimating the Coefficients
+
+$e_i = y_i-\hat{y}_i$ represents the ith residual.
+
+We define the residual sum of squares (RSS) as
+$RSS=e_{1}^2 + e_{2}^2 +\cdot\cdot\cdot+e_{n}^2$
+
+the minimizers are then:
+
+$\hat\beta_1 = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{\sum_i={1}^n(x_i-\bar{x})^2}$
+
+$\hat\beta_0 = \bar{y} - \hat\beta_1 \bar{x}$
+
+#### Assessing the Accuracy of the Coefficient Estiamtes
+
+The well known standard error formula
+
+$Var(\hat{\mu}) = SE(\hat{\mu})^2 = \frac{\sigma^2}{n}$ (3.7)
+
+extends to $\hat\beta_0,\hat\beta_1$:
+
+$SE(\hat\beta_0)^2 = \sigma^2\big(\frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^n(x_i-\bar{x})^2}\big)$
+
+$SE(\hat\beta_1)^2 = \frac{\sigma^2}{\sum_{i=1}^n (x_i-\bar{x})^2}$ (3.8)
+
+where $\sigma^2 = Var(\epsilon)$
+
+The estimate of $\sigma$ is known as the residual standard error given by:
+
+$RSE = \sqrt{RSS/(n-2)}$
+
+Confidence Intervals:
+
+$\hat\beta_1 \pm 2\cdot SE(\hat\beta_1)$
+
+$\hat\beta_0 \pm 2\cdot SE(\hat\beta_0)$
+
+Hypothesis Test
+
+$H_0 :\beta_1 = 0$ vs $H_a :\beta_1 \neq 0$
+
+Test statistics $t = \frac{\hat\beta_1 - 0}{SE(\hat\beta_1)}$
+
+
+Residual Standard Error
+
+$RSE = \sqrt{\frac{1}{n-2} RSS} = \sqrt{\frac{1}{n-2} \sum_{i=1}^n (y_i-\hat y_i)^2}$
+
+$R^2$ Statistic.
+
+$R^2 = \frac{TSS - RSS}{TSS} = 1-\frac{RSS}{TSS}$ where $TSS = \sum(y_i-\bar{y})^2$
+is the total sum of squares.
+
+TSS measures the total variancei n the response Y.
+
+Recall correlation formula, it can be shown that Cor(X,Y) = r and in linear
+regression that $R^2 = r^2$
+
+### Multiple Linear Regression
+
+For $p$ predictors the multiple linear regression model takes the form:
+
+$Y = \beta_0+\beta_1 X_1 + \beta_2 X_2 + \cdot\cdot\cdot + \beta_p X_p +\epsilon$
+
+We interpret each $\beta_j$ as the average effect on Y of a one unit increase in $X_j$
+holding all other predictors fixed.
+
+#### Estimating the Regression Coefficients
+
+The general form of RSS is the same $RSS = \sum_{i=1}^n(y_i-\hat y_i)^2$
+though $\hat y_i = \hat\beta_0+\hat\beta_1 x_1 +...+\hat\beta_p x_p$
+
+#### Some Important Questions
+
+1. Is at least one of the predictors $X_1,...,X_p$ useful in predicting the response?
+
+2. Do all the predictors help to explain Y, or is only a subset of the predictors useful?
+
+3. How well does the model fit the data?
+
+4. Given a set of predictors values, what response value should we predict and how
+accurate is our prediction.
+
+#### Is at least one of the predictors $X_1,...,X_p$ useful in predicting the response?
+
+Hypothesis test:
+
+$H_0: \beta_1=\beta_2...=\beta_p=0$ vs $H_a:$ at least one of $\beta_j$ is non-zero.
+
+Using test statistic $F= \frac{TTSS-RSS)/p}{RSS/(n-p-1)}$, TSS and RSS are the same
+as simple linear regression.
+
+One can show that $E(RSS/(n-p-1)) = \sigma^2$ and that provided $H_0$ is true
+$E((TSS-RSS)/p) = \sigma^2$
+
+To test that some subset q of the coefficients are zero the null is:
+
+$ H_0: \beta_{p-q+1} = \beta_{p-q+2}=...=\beta_0 = 0$
+
+In this case we fit a second model that uses all the variables except those $q$
+
+Suppose $RSS_0$ is the residual sum of squares for such a model then:
+
+$F = \frac{RSS_0 - RSS)/q}{RSS/(n-p-1)}$
+
+When the number of predictors is high , the multiple linear regression model
+cannot be fit using least squares and so the F-statistic cannot be used.
+
+#### Two: Deciding on Important Variables
+
+Three approaches: Forward Selection, Backward Selection, Mixed Selection
+
+#### Three: Model Fit
+
+Adding predictors reduces RSS and thus increases $R^2$. It may or may not
+reduce RSE depending on whether the reduction in RSS outweighs the increase in p
+
+#### Four: Predictions
+
+Three sorts of uncertainty associated with rpedicition:
+
+1. The coefficient estiamte $\hat\beta_0,...,\hat\beta_p$ are estimates for $\beta_0,...,\beta_p$
+That is, the least squares plane $\hat Y = \hat\beta_0 +\beta_1 X_1 +\cdot\cdot\cdot+\hat\beta_p X_p$
+
+is only an estimate for the true population regression plane
+$f(X) = \beta+\beta_1 X_1 +\cdot\cdot\cdot+ \beta_p X_p$
+
+We can compute a confidence interval in order to determine how close $\hat Y$ will be to $f(X)$
+
+2. Of course, in practice assuming a linear model for $f(X)$ is almost always
+an approximation of reality so there is an additional source of potentiall
+reducible error which we call model bias.
+
+3. Even if we knew the true values we can't predict the response due to $\epsilon$
+
+## Other Considerations in the REgression Model
+
+#### Qualitative Predictors
+
+Qualitative predictors can be encoded as dummy variables $x_i$
+
+where $x_i = 1$ if ith person has the quality
+and $x_i = 0$ if ith person does not have the quality.
+
+There will always be one fewer dummy varaiable then the number of factors.
