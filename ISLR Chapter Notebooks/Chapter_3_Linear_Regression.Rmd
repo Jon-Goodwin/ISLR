@@ -1,6 +1,9 @@
 ---
 title: "Chapter 3 Linear Regression"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -158,7 +161,7 @@ reducible error which we call model bias.
 
 3. Even if we knew the true values we can't predict the response due to $\epsilon$
 
-## Other Considerations in the REgression Model
+## Other Considerations in the Regression Model
 
 #### Qualitative Predictors
 
@@ -167,4 +170,35 @@ Qualitative predictors can be encoded as dummy variables $x_i$
 where $x_i = 1$ if ith person has the quality
 and $x_i = 0$ if ith person does not have the quality.
 
-There will always be one fewer dummy varaiable then the number of factors.
+There will always be one fewer dummy variable then the number of factors.
+
+#### Removing the additive assumption
+
+The hierarchical principle states that if we include an interaction in a model, we
+hierarchical should also include the main effects, even if the p-values associated with principle their coefficients are not significant.
+
+#### 3.3.3 Potention problems 
+
+1. Non-linearity of the response-predictor relationships.
+
+2. Correlation of error terms.
+
+3. Non-constant variance of error terms.
+
+4. Outliers.
+
+5. High-leverage points.
+
+6. Collinearity.
+
+Leverage Statistics: 
+$h_=\frac{1}{n} +\frac{(x_i-\bar{x}^2)}{\sum_{i'=1}^n(x_{i'}-\bar{x})^2}$
+
+Collinearity can be detected through inspectating a
+correlation matrix
+
+Multicolinearity can be detected from variance inflation factor(VIF)
+
+$VIF(\hat\beta_j) = \frac{1}{1-R_{X_j|X_{-j}}^2}$
+
+### 3.4 The Marketing Plan
