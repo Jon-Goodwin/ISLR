@@ -201,4 +201,38 @@ Multicolinearity can be detected from variance inflation factor(VIF)
 
 $VIF(\hat\beta_j) = \frac{1}{1-R_{X_j|X_{-j}}^2}$
 
-### 3.4 The Marketing Plan
+#### 3.4 The Marketing Plan
+
+#### Comparison of Linear Regression with KNN
+
+Linear regressions is parametric
+
+Parametric methods have tehse advantages:
+
+Easy to fit, interactions are simple and statistical tests are
+easy to perform. But parametric methods make strong
+assumptions on the form of $f(X)$.
+
+KNN regression is a form of non parametric method.
+
+$\hat f(x_0) = \frac{1}{K}\sum_{x_{i}\in N_{0}} y_i$
+
+Lower values of K result in more flexible fit with low bias but high variance.
+
+As a general rule parametric methods will tend to outperform nonparametric approaches when tehre is a small number of observations per predictor.
+
+### 3.6 Lab: Linear Regression
+
+#### 3.6.2 Simple Linear Regression
+
+```{r}
+library(MASS)
+library(ISLR2)
+library(tidyverse)
+
+glimpse(Boston)
+
+lm.fit <- lm(medv ~ lstat, data = Boston)
+coef(lm.fit)[["(Intercept)"]]
+```
+
