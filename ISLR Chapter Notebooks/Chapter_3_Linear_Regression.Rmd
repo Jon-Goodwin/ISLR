@@ -260,4 +260,6 @@ lm.fit5 <- lm(medv ~ poly(lstat, 5))
 
 #### 3.6.6 Qualitative Predictors
 
+### 3.7 Excercises
 
+1. 
