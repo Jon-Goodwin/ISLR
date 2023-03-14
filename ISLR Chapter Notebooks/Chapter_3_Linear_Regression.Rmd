@@ -262,4 +262,54 @@ lm.fit5 <- lm(medv ~ poly(lstat, 5))
 
 ### 3.7 Excercises
 
-1. 
+1. The p values correspond to the null hypothesis that the corresponding coefficients are $0$ when the other variables are held fixed. So based on these p-values we can conclude that there is evidence of a relationship between TV and Radio spending and Sales. And that there is no evidence of a relationship between newspaper spending and sales.
+
+2. KNN regression takes the average of the K nearest responses as the corresponding prediction for $x_0$ where as KNN classifier classifies a given $x_0$ to the most probable of the K nearest neighbours.
+
+3.
+  a. $\hat y = 50 + 20 x_1 + 0.07 x_2 + 35 x_3 + 0.01x_1x_2 -10x_1x_3$
+  For fixed IQ and GPA as c,k a high school graduate earns:
+  $\hat y = 50 + 20c + 0.07k + 0.01ck$ and a college graduate earns
+  $\hat y = 50 + 20c + 0.07k + 35 + 0.01ck -10=75 + 20c + 0.07k + 0.01ck$ thus college graduates earn 25 more on average.
+
+  b. $\hat y = 75 + 20c + 0.07k + 0.01ck = 75 + 20*4 + 0.07*110+0.01(110*4) = 167.1$
+  
+  c. False. P-value is evidence of a relationship, the magnitude of the coefficient is the effect of that relationship given sufficient evidence that the relationship exists. A coefficient can be large in magnitude with large p value and thus not have evidence of a relationship or have low 
+  
+4. a. We would always expect the cubic model to have lower RSS because at worst case $\beta_2, \beta_3$ could just be 0 and perform as good as the linear case.
+
+b. Linear model should always outperform the cubic function given that the underlying true form is also linear
+
+c. The cubic function will always lower RSS
+
+d. Not enough information, if the true form is very far from lienar then we expect the cubic function to outperform but if it is only slightly non linear then the linear function could still have lower test error.
+
+5. Note that $\sum_{i=1}^n x_{i}^2= K$ since the sample is fixed,
+
+So we rewrite $\hat y_i = x_i \hat\beta$ for some fixed i, as 
+$\hat y_i = \frac{x_i}{K} \sum_{j = 1}^n x_j y_j=\sum_{j = 1}^n \frac{x_i}{K} x_j y_j$
+
+Thus $a_{i'} = \frac{x_i}{K} x_j$ choice of index notation doesn't matter.
+
+6. Since $\hat\beta_0 = \bar y - \hat\beta_1 \bar{x}$
+We have that for the SLR model $\hat y_i = \hat\beta_0 + \hat\beta_1 x_i$, then $\hat y_i = \bar{y}-\hat\beta_1\bar{x} + \hat\beta_1 \bar{x} = \bar{y}$ thus for the value $x_i = \bar{x}$ the prediction is given
+$\bar{y}$
+
+7. $R^2 = \frac{ TSS-RSS}{TSS} = 1-\frac{RSS}{TSS}$
+
+Assuming $\bar{y}=\bar{x}=0$ then
+$\frac{ TSS-RSS}{TSS}= \frac{\sum y_i^2 - \sum(y_i-\hat{y}_i)^2}{\sum y_{i}^2}$
+
+Since $\hat\beta_0 = \bar{y}-\hat\beta_1 \bar{x}=0$
+then $\hat y_{i} = \hat\beta_1 x_i$
+thus we have $\frac{\sum y_i^2 - \sum y_i^2+2\beta_1 \sum x_iy_i - \beta_{1}^2 \sum x_{i}^2}{\sum y_{i}^2}$
+then
+$\hat\beta_1 = \frac{\sum x_i y_i}{\sum x_i^2}$
+thus
+$$ = \frac{\frac{2(\sum x_iy_i)^2}{\sum x_i^2} - \frac{(\sum x_iy_i)^2}{(\sum x_i^2)^2} \sum x_{i}^2}{\sum y_{i}^2}$$
+
+simplifying gives:
+
+$$= \frac{2(\sum x_iy_i)^2 - (\sum x_iy_i)^2}{\sum x_{i}^2\sum y_{i}^2} = \frac{(\sum x_iy_i)^2}{\sum x_{i}^2\sum y_{i}^2}Cor(X,Y)$$
+
+8. 
